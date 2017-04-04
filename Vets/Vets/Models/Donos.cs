@@ -10,8 +10,8 @@ namespace Vets.Models
         public int DonosID { get; set; }
         public string Nome { get; set; }
         public string NIF { get; set; }
-        public string Morada { get; set; }
-        public string CodPostal { get; set; }
-        public double altura {get;set;}
-}
+        //relacionar os "donos" com os "animais"
+        //1 dono tem muitos animais
+        public virtual ICollection<Animais> ListaDeAnimais { get; set; }
+    }
 }
