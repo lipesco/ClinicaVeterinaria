@@ -21,5 +21,6 @@ namespace Vets.Models
         // no Package Manager Console escrever: Enable-Migrations -EnableAutomaticMigrations
         // a seguir escrever Update-Database
         // escrever "MSSQLLocalDB" em vez de v11.0 no ficheiro Web.config em connectionstrings
+        public virtual DbSet<Animais> Animais { get; set; }
     }
 }
