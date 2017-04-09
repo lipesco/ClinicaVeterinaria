@@ -17,7 +17,5 @@ namespace Vets.Models
         [ForeignKey("Dono")]
         public int DonoFK { get; set; } //existe para criar a FK na BD
         public Donos Dono { get; set; } //existe para relacionar os objectos no C#
-
-
     }
 }
