@@ -15,12 +15,13 @@ namespace Vets.Models
             Consultas = new HashSet<Consultas>();
         }
 
-        [Key]
+        [Key] //força a criação de uma chave primária
         public int VeterinarioID { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string Nome { get; set; }
+
+        [Required] // é obrigatório preencher o atributo 'nome'
+        [StringLength(30)] // o tamanho máximo é 30
+        public string Nome { get; set; } //atributo 'nome'
 
         [StringLength(50)]
         public string Rua { get; set; }
@@ -37,8 +38,9 @@ namespace Vets.Models
         [StringLength(9)]
         public string NIF { get; set; }
 
+        //formata o tipo de dados na BD
         [Column(TypeName = "date")]
-        public DateTime? DataEntradaClinica { get; set; }
+        public DateTime? DataEntradaClinica { get; set; } // o ? torna o atributo de preenchimento facultativo
 
         [Required]
         [StringLength(30)]
