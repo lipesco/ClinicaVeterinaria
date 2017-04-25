@@ -116,10 +116,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnimaisController.cs" />
     <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,6 +146,11 @@
     <Content Include="Views\Donos\Edit.cshtml" />
     <Content Include="Views\Donos\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Animais\Create.cshtml" />
+    <Content Include="Views\Animais\Delete.cshtml" />
+    <Content Include="Views\Animais\Details.cshtml" />
+    <Content Include="Views\Animais\Edit.cshtml" />
+    <Content Include="Views\Animais\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
