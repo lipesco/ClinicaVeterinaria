@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnimaisController.cs" />
+    <Compile Include="Controllers\ConsultasController.cs" />
     <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Controllers\VeterinariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,6 +158,11 @@
     <Content Include="Views\Veterinarios\Details.cshtml" />
     <Content Include="Views\Veterinarios\Edit.cshtml" />
     <Content Include="Views\Veterinarios\Index.cshtml" />
+    <Content Include="Views\Consultas\Create.cshtml" />
+    <Content Include="Views\Consultas\Delete.cshtml" />
+    <Content Include="Views\Consultas\Details.cshtml" />
+    <Content Include="Views\Consultas\Edit.cshtml" />
+    <Content Include="Views\Consultas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
