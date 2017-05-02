@@ -25,13 +25,20 @@ namespace Vets.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //redireciona para o inicio
+                return RedirectToAction("Index");
             }
+            //Pesquisar na BD pelo dono cujo id é fornecido
             Donos donos = db.Donos.Find(id);
+            //se o dono não é encontrado...
             if (donos == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                //redireciona para o inicio
+                return RedirectToAction("Index");
             }
+            //mostra os dados do dono
             return View(donos);
         }
 
@@ -61,16 +68,22 @@ namespace Vets.Controllers
         // GET: Donos/Edit/5
         public ActionResult Edit(int? id)
         {
+            //avalia se o parametro é nulo
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //retorna para o inicio
+                return RedirectToAction("Index");
             }
-            Donos donos = db.Donos.Find(id);
-            if (donos == null)
+            Donos dono = db.Donos.Find(id);
+            if (dono == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                //retorna para o inicio
+                return RedirectToAction("Index");
             }
-            return View(donos);
+            //mostra os dados do dono
+            return View(dono);
         }
 
         // POST: Donos/Edit/5
@@ -94,12 +107,16 @@ namespace Vets.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //retorna para o inicio
+                return RedirectToAction("Index");
             }
             Donos donos = db.Donos.Find(id);
             if (donos == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                //retorna para o inicio
+                return RedirectToAction("Index");
             }
             return View(donos);
         }
@@ -109,9 +126,27 @@ namespace Vets.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Donos donos = db.Donos.Find(id);
-            db.Donos.Remove(donos);
-            db.SaveChanges();
+            //procurar o dono na base de dados cuja chave primária corresponde ao parâmetro fornecido -> id
+            Donos dono = db.Donos.Find(id);
+
+            try
+            {
+                //remove do objecto 'db' o 'dono' encontrado na linha anterior
+                db.Donos.Remove(dono);
+                //torna definitivo as instruções  anteriores
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //throw;
+                //gerar uma mensagem de erro a ser entregue ao utilizador
+                ModelState.AddModelError("",
+                    string.Format("Ocorreu um erro na operação de eliminar o 'dono' com ID {0} - {1}", id, dono.Nome)
+                );
+                //regressar à view 'Delete'
+                return View(dono);
+            }
+            //devolve o controlo do programa, apresentado a view Index
             return RedirectToAction("Index");
         }
 
