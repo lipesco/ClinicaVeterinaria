@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -32,13 +33,17 @@ namespace Vets.Models
         }
 
 
-        [Key]
+        [Key] //indica que o atributo é PK
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] // quando usado, inibe o atributo de ser Auto Number
+        [Display(Name ="Identificador do Dono")]
         public int DonoID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Por favor, insira o {0}!")]
+        [Display(Name = "Nome do Dono")]
         public string Nome { set; get; }
 
-        [Required]
+        [Required(ErrorMessage ="Por favor, insira o NIF")]
+        [Display(Name = "Número de Identificação Fiscal")]
         public string NIF { get; set; }
 
         // especificar que um DONO tem muitos ANIMAIS
