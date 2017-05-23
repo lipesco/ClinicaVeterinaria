@@ -7,7 +7,7 @@ namespace Vets.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Vets.Models.VetsDB>
+    internal sealed class Configuration : DbMigrationsConfiguration<Vets.Models.ApplicationDbContext>
     {
         public Configuration()
         {
@@ -15,7 +15,7 @@ namespace Vets.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(Vets.Models.VetsDB context)
+        protected override void Seed(Vets.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
