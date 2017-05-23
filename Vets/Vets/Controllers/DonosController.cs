@@ -53,17 +53,69 @@ namespace Vets.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonoID,Nome,NIF")] Donos donos)
+        public ActionResult Create([Bind(Include = "Nome,NIF")] Donos dono)
         {
-            if (ModelState.IsValid)
-            {
-                db.Donos.Add(donos);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //determinar o número (ID) a atribuir ao novo DONO
+            //criar a variável que recebe esse valor
+            int novoID = 0;
+            //determinar o novoID
+            /*   Em SQL
+                string b=@"
+                    select d.donoID
+                    from donos d
+                    order by d.donosID desc
+                    limit 1
+                ";
+            */
+            
+            try { 
+            
+            /* novoID = (from d in db.Donos
+                       orderby d.DonoID descending
+                       select d.DonoID
+                      ).FirstOrDefault()+1;*/
+            //outra hipótese
+            /*
+                select max(d.DonoID)
+                from donos d
+            */
 
-            return View(donos);
-        }
+            
+
+                novoID =db.Donos.Max(d=>d.DonoID) +1;
+            }
+            catch (System.Exception)
+            {
+                //a tabela donos está vazia, não sendo possível devolver o max de uma tabela vazia, por dar um resultado null, e é invávido somar com inteiro
+                //atribuir o valor de 1 ao novoID "manualmente"
+                novoID = 1;
+            }
+            //atribuir o 'novoID' ao objecto 'dono'
+            dono.DonoID = novoID;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Donos.Add(dono);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (System.Exception)
+            {
+                //não consigo guardar as alterações
+                //no mínimo informar o utilizador que não é possível guardar
+                ModelState.AddModelError("", "FATAL ERROR!!! Não é possível adicionar novo dono.");
+                // notificar o admin/progrmador que ocorreu este erro
+                //fazer:
+                //1ºenviar um mail ao programador a inormar a ocorrencia do erro
+                //2ºter uma tabela na bd onde são reportados os erros:
+                //data,método,controller,detalhes do erro
+
+            }
+            return View(dono);
+            }
 
         // GET: Donos/Edit/5
         public ActionResult Edit(int? id)

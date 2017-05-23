@@ -38,12 +38,17 @@ namespace Vets.Models
         [Display(Name ="Identificador do Dono")]
         public int DonoID { get; set; }
 
+        //http(s)?://([\w-_]+\.)+[\w-]+(/[\w- +./?%&=#]*)?        - validar endereço http
+        //\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*            - validar endereço mail
+        //\d{4}(-\d{3})?( \w+*)                                   - validar código postal
         [Required(ErrorMessage ="Por favor, insira o {0}!")]
         [Display(Name = "Nome do Dono")]
+        [RegularExpression("[A-ZÓ][a-záàãâéèêíìîóòõôúùûäëïöüçñ]+(-)?( ((e|de|da|dos) )?(d')?[A-ZÓ][a-záàãâéèêíìîóòõôúùûäëïöüçñ]+){0,5}",ErrorMessage ="{0} não válido!")]  //o Ó para o Óscar. Pode existir o António d'Almeida. O (-)? Para situações como Sotto-Maior
         public string Nome { set; get; }
 
         [Required(ErrorMessage ="Por favor, insira o NIF")]
         [Display(Name = "Número de Identificação Fiscal")]
+        [RegularExpression("[0-9]{9}", ErrorMessage ="Por favor, insira o NIF com 9 algarismos.")]
         public string NIF { get; set; }
 
         // especificar que um DONO tem muitos ANIMAIS
