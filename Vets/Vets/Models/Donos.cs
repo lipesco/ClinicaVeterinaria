@@ -51,6 +51,11 @@ namespace Vets.Models
         [RegularExpression("[0-9]{9}", ErrorMessage ="Por favor, insira o NIF com 9 algarismos.")]
         public string NIF { get; set; }
 
+
+        //criar uma 'ponte' entre a BD do negócio e a BD de autenticação
+        public string NomeDoUtilizador { get; set; }
+
+
         // especificar que um DONO tem muitos ANIMAIS
         public ICollection<Animais> ListaDeAnimais { get; set; }
 

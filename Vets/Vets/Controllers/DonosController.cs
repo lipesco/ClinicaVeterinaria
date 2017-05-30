@@ -10,6 +10,8 @@ using Vets.Models;
 
 namespace Vets.Controllers
 {
+    [Authorize]
+
     public class DonosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,7 +19,16 @@ namespace Vets.Controllers
         // GET: Donos
         public ActionResult Index()
         {
-            return View(db.Donos.ToList().OrderBy(d => d.Nome));
+            //mostrar os dados de todos os donos apenas aos utilizadores de perfil 'Funcionario' ou perfil 'Veterinario'
+            if (User.IsInRole("Funcionario") || User.IsInRole("Veterinario"))
+            {
+                return View(db.Donos.ToList().OrderBy(d => d.DonoID));
+            }
+            //senão, mostra os dados do utilizador autenticado
+            //select *
+            //from Donos
+            //where NomeDoUtilizador=LOGIN
+            return View(db.Donos.Where(d => d.NomeDoUtilizador == User.Identity.Name).ToList());
         }
 
         // GET: Donos/Details/5
@@ -43,6 +54,7 @@ namespace Vets.Controllers
         }
 
         // GET: Donos/Create
+        [Authorize(Roles ="Funcionario")]
         public ActionResult Create()
         {
             return View();
@@ -53,6 +65,7 @@ namespace Vets.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Funcionario")]
         public ActionResult Create([Bind(Include = "Nome,NIF")] Donos dono)
         {
             //determinar o número (ID) a atribuir ao novo DONO
