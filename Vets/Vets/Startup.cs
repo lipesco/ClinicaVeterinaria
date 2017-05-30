@@ -80,7 +80,7 @@ namespace Vets
                 //Adicionar o Utilizador à respetiva Role-Dono-
                 if (chkUser.Succeeded)
                 {
-                    var result1 = userManager.AddToRole(user.Id, "Dono");
+                    var result2 = userManager.AddToRole(user.Id, "Dono");
                 }
             }
 
